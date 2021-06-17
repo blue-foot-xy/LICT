@@ -3,6 +3,17 @@
 {% load markdown_deux_tags %}
 
 {% block head %}
+<style>
+  .wmd-panel {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  #wmd-button-bar-id_body {
+    float: left;
+  }
+
+</style>
 {{ form.media }}
 {% endblock head %}
 
