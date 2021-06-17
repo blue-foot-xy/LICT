@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.views import View
+from django.http import HttpResponseRedirect
 
 from .models import *
+from .forms import *
 
 # Create your views here.
 class Home(View):
@@ -53,3 +55,21 @@ class ResearchTeam(View):
         }
 
         return render(request, 'other_pages/research_team.html', context)
+
+
+class CVUpload(View):
+    def get(self, request, *args, **kwargs):
+        vacancy_announcements = VacancyAnnouncement.objects.all()
+        form = CVUploadForm()
+        context = {
+            'vacancy_announcements' : vacancy_announcements,
+            'form': form,
+        }
+        return render(request, 'posts/vacancy.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = CVUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+        form = CVUploadForm()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

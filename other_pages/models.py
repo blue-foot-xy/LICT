@@ -48,6 +48,16 @@ class Contact(models.Model):
     email = models.CharField(max_length=200)
 
 
+######################### VACANCY PAGE #########################
+class VacancyAnnouncement(models.Model):
+    title =  models.CharField(max_length=200)
+    description = models.TextField()
+
+class CVUpload(models.Model):
+    cv_pdf = models.FileField(upload_to='cv/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+
 ###################### RESEARCH TEAM PAGE ######################
 class ResearchTeamMember(models.Model):
     name = models.CharField(max_length=200)
