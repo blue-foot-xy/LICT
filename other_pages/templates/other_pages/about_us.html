@@ -1,0 +1,74 @@
+{% extends 'posts/base.html' %}
+
+{% block content %}
+
+
+<div class="row mt-4">
+    <div class="col mb-4">
+        <div class="card">
+            <div class="card-body">
+               <h2 class="mb-3">Vision:</h2>
+               <hr/>
+               <ul>
+               {% for vision in visions %}
+               <li>{{ vision.vision }}</li>
+                {% endfor %}
+               </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row mt-4">
+    <div class="col mb-4">
+        <div class="card">
+            <div class="card-body">
+               <h2 class="mb-3">Mission:</h2>
+               <hr/>
+               <ul>
+               {% for mission in missions %}
+               <li>{{ mission.mission }}</li>
+                {% endfor %}
+               </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row mt-4">
+    <div class="col mb-4">
+        <div class="card">
+            <div class="card-body">
+               <h2 class="mb-3">Goal:</h2>
+               <hr/>
+               <ul>
+               {% for goal in goals %}
+               <li>{{ goal.goal }}</li>
+                {% endfor %}
+               </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row mt-4">
+    <div class="col mb-4">
+        <div class="card">
+            <div class="card-body">
+               <h4 class="mb-3">Under this research lab, the tasks what we can do are, we:</h4>
+               <hr/>
+               <ul>
+               {% for task in tasks %}
+               <li>{{ task.task }}</li>
+                {% endfor %}
+               </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

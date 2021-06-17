@@ -1,0 +1,47 @@
+{% extends 'posts/base.html' %}
+
+{% block content %}
+
+<div class="card-deck">
+  {% for member in research_team %}
+  <div class="card mb-3">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        {% if member.photo %}
+            <img src="{{member.photo.url}}" class="card-img" alt="...">
+        {% endif %}
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{ member.name }}</h5>
+          <p class="card-text">
+            {% if member.post  %}
+            Post: {{ member.post }}
+            <br/>
+            {% endif %}
+            {% if member.email  %}
+            E-mail: {{ member.email }}
+            <br/>
+            {% endif %}
+            {% if member.phone_no  %}
+            Phone: {{ member.phone_no }}
+            <br/>
+            {% endif %}
+            {% if member.url  %}
+            URL: {{ member.url }}
+            <br/>
+            {% endif %}
+            {% if member.remarks  %}
+            Remarks: {{ member.remarks }}
+            <br/>
+            {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+
+{% endblock content %}

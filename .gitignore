@@ -1,0 +1,10 @@
+# Keeping all of these commented out, while work is under progress
+# *.log
+# *.pot
+# *.pyc
+# __pycache__/
+# local_settings.py
+# db.sqlite3
+# db.sqlite3-journal
+# /media
+# /static

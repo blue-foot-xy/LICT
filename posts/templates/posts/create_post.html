@@ -1,0 +1,24 @@
+{% extends 'posts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+   {% if user.is_authenticated %}
+      <div class = "card my-3">
+         <div class = "card-body">
+               <h2 class="my-2">Create a Publication</h2>
+               <hr/>
+               <form method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  {{ form.title|as_crispy_field }}
+                  <br/>
+                  {{ form.body|as_crispy_field }}
+                  <div class="py-3">
+                  {{ form.image|as_crispy_field }}
+                  </div>
+                  <button class="btn btn-success mt-3">Submit!</button>
+               </form>
+         </div>
+      </div>
+    {% endif %}
+
+{% endblock content %}

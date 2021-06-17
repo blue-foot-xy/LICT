@@ -1,0 +1,119 @@
+{% extends 'posts/base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h3 class="display-5 text-center">Laboratory for ICT Research and Development</h3>
+<h5 class="display-7 text-center">Institute of Engineering, Tribhuvan University</h5>
+<p class="text-center mb-3">lict@ioe.edu.np</p>
+
+    <div class="row">
+        <div class="col mb-4">
+            <div class="card">
+                <div class="card-body">
+                  <div id="carouselExampleIndicators" class="carousel slide" data-mdb-ride="carousel">
+                    <div class="carousel-indicators">
+                      <button
+                        type="button"
+                        data-mdb-target="#carouselExampleIndicators"
+                        data-mdb-slide-to="0"
+                        class="active"
+                        aria-current="true"
+                        aria-label="Slide 1"
+                      ></button>
+                      <button
+                        type="button"
+                        data-mdb-target="#carouselExampleIndicators"
+                        data-mdb-slide-to="1"
+                        aria-label="Slide 2"
+                      ></button>
+                      <button
+                        type="button"
+                        data-mdb-target="#carouselExampleIndicators"
+                        data-mdb-slide-to="2"
+                        aria-label="Slide 3"
+                      ></button>
+                    </div>
+                    <div class="carousel-inner">
+                      {% for image in carousel_images %}
+                      <div class="carousel-item {% if forloop.first %} active{% endif %}">
+                        <img
+                          src="{{ image.image.url }}"
+                          class="d-block"
+                          style="height: 50vh"
+                          alt="..."
+                        />
+                      </div>
+                      {% endfor %}
+                    </div>
+                    <button
+                      class="carousel-control-prev"
+                      type="button"
+                      data-mdb-target="#carouselExampleIndicators"
+                      data-mdb-slide="prev"
+                    >
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button
+                      class="carousel-control-next"
+                      type="button"
+                      data-mdb-target="#carouselExampleIndicators"
+                      data-mdb-slide="next"
+                    >
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+
+                  <br/>
+                   Laboratory for ICT Research and Development is the new laboratory established on 1st January,2017 at Institute of Engineering, Tribhvuvan University, Nepal with the vision to have world class reserach on Information and Communication Technology.
+
+                   This research lab is missioned to carry out the widely focused research and innovation on modern technologies like:
+                   <ul>
+                   <li>New Network Technologies: NGN, Software Defined Network, IPv6</li>
+                   <li>Wireless Communications, WSN, IoT</li>
+                   <li>Cloud Computing and Virtualization, FOG computing, Big Data</li>
+                   <li>Machine Learning, Natural Language Processing, Image Processing & AI</li>
+                   <li>Software Engineering & Information Systems</li>
+                   <li>Research projects on any ICT related fields.</li>
+                   </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+      <div class="card-deck">
+        <div class="card mb-3">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="{{contents.deans_photo.url}}" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title"><a href="#">Dean's Message</a></h5>
+                <p class="card-text">{{ contents.deans_message_summary }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src= "{{contents.chairmans_photo.url}}" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title"><a href="#">Chairman's Message</a></h5>
+                <p class="card-text">{{ contents.chairmans_message_summary }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+{% endblock content %}

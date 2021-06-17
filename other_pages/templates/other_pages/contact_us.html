@@ -1,0 +1,25 @@
+{% extends 'posts/base.html' %}
+
+{% block content %}
+
+
+
+<div class="row mt-4">
+    <div class="col mb-4">
+        <div class="card">
+            <div class="card-body">
+               <h2 class="mb-3">Contact Us:</h2>
+               <hr/>
+               {{ contacts.organization_name }} <br/>
+               {{ contacts.college_name }} <br/>
+               {{ contacts.address }} <br/>
+               {{ contacts.phone_no }} <br/>
+               {{ contacts.email }} <br/>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

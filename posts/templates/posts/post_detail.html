@@ -1,0 +1,36 @@
+{% extends 'posts/base.html' %}
+{% load crispy_forms_tags %}
+{% load markdown_deux_tags %}
+{% load static %}
+
+{% block content %}
+<div class="row mt-5">
+    <div class="col-md-5 col-sm-6">
+        <a href="{% url 'view-posts' %}" class="btn btn-light">Back To Feed</a>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="mb-3">
+                  <a href="#" class="text-dark">{{ post.title }}</a>
+                  {% if request.user == post.publisher %}
+                    <a href="{% url 'post-edit' post.pk %}" style="color: #333;"><i class="far fa-edit"></i></a>
+                    <a href="{% url 'post-delete' post.pk %}" style="color: #333;"><i class="fas fa-trash"></i></a>
+                  {% endif %}
+                </h2>
+                 {% if post.image %}
+                  <img src="{{ post.image.url }}" class="img-fluid"/>
+                 {% endif %}
+               <hr/>
+               <p><a style="text-decoration: none" class="text-primary" href="#">@{{ post.publisher }}</a> <span>{{ post.publish_date }}</span></p>
+                <p class="brown-lighter-hover">{{ post.body|markdown }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="{% static 'js/post.js' %}">
+{% endblock %}
