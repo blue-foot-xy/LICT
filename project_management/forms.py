@@ -8,6 +8,7 @@ class StatusForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(StatusForm, self).__init__(*args, **kwargs)
         self.fields['estimated_completion_date'].label = "Estimated Completion Date (YYYY-MM-DD)"
+        self.fields['introduction'].label = "Introduction (You can drag & drop images into this field)"
 
     introduction = MarkdownxFormField()
     state_of_project = forms.CharField(label='State of the project', widget=forms.Select(choices=[('ongoing', 'Ongoing'),
