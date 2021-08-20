@@ -17,11 +17,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import url
+from markdownx import urls as markdownx
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', include('posts.urls')),
     path('', include('other_pages.urls')),
-    path('user/', include('user.urls'))
+    path('', include('project_management.urls')),
+    path('user/', include('user.urls')),
+    url(r'^markdownx/', include(markdownx)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

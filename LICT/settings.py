@@ -65,13 +65,15 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+
     'crispy_forms',
-    'pagedown.apps.PagedownConfig',
-    'markdown_deux',
+
+    'markdownx',
 
     'posts.apps.PostsConfig',
     'user.apps.UserConfig',
     'other_pages.apps.OtherPagesConfig',
+    'project_management.apps.ProjectManagementConfig',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

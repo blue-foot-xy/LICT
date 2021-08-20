@@ -1,126 +1,178 @@
 {% load static %}
-
-<!-- Navbar-->
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-  <div class="container-fluid justify-content-between">
-    <!-- Left elements -->
-    <div class="d-flex">
-      <!-- Brand -->
-      <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="{%url 'home'%}">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Toggle button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-mdb-toggle="collapse"
+      data-mdb-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Navbar brand -->
+      <a class="navbar-brand mt-2 mt-lg-0" href="#">
         <img
           src="{% static 'lict_logo.png' %}"
           height="32"
           alt="LICT"
           loading="lazy"
         />
+
+        <!-- Search form -->
+        <form class="input-group w-auto my-auto d-none d-sm-flex" method="GET" action="{% url 'search' %}">
+          <input
+            autocomplete="off"
+            type="search"
+            class="form-control rounded"
+            placeholder="Search Articles"
+            style="min-width: 125px;"
+            name='query'
+            value="{{ request.GET.query }}"
+          />
+          <span class="input-group-text border-0 d-none d-lg-flex"
+            ><button style="border: none; background-color: transparent; box-shadow: none" type="submit"><i class="fas fa-search"></i></button></span>
+        </form>
+
+
+
       </a>
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'home' %}">
+            Home
+          </a>
+        </li>
 
-      <!-- Search form -->
-      <form class="input-group w-auto my-auto d-none d-sm-flex">
-        <input
-          autocomplete="off"
-          type="search"
-          class="form-control rounded"
-          placeholder="Search"
-          style="min-width: 125px;"
-        />
-        <span class="input-group-text border-0 d-none d-lg-flex"
-          ><i class="fas fa-search"></i
-        ></span>
-      </form>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'about_us' %}">
+            About Us
+          </a>
+        </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'research_team' %}">
+            Personnel
+          </a>
+        </li>
+
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle hidden-arrow"
+            href="#"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-mdb-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Collaborations
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="navbarDropdownMenuLink"
+          >
+            <li><a class="dropdown-item" href="https://ioe.edu.np/partnerships/national-and-international-linkage/" target="blank">Universities and Agencies</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle hidden-arrow"
+            href="#"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-mdb-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Research
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="navbarDropdownMenuLink"
+          >
+            <li><a class="dropdown-item" href="{% url 'view-posts' %}">Research Projects</a></li>
+            <li><a class="dropdown-item" href="{% url 'view-domains' %}">Lead Research Domain</a></li>
+            <li><a class="dropdown-item" href="{% url 'view-publications' %}">Research Publications</a></li>
+          </ul>
+        </li>
+
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle hidden-arrow"
+            href="#"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-mdb-toggle="dropdown"
+            aria-expanded="false"
+          >
+          Project-Management
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="navbarDropdownMenuLink"
+          >
+            <li><a class="dropdown-item" href="{% url 'status' %}">Ongoing</a></li>
+            <li><a class="dropdown-item" href="{% url 'status-completed' %}">Completed</a></li>
+            <li><a class="dropdown-item" href="{% url 'status-create' %}">Create New</a></li>
+          </ul>
+        </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'vacancy' %}">
+            Vacancy
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'view-news' %}">
+            Notices
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contact_us' %}">
+            Contact Us
+          </a>
+        </li>
+
+        {% if request.user.is_superuser %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'manage-permission' %}">
+            Permissions
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+      <!-- Left links -->
     </div>
-    <!-- Left elements -->
-
-    <!-- Center elements -->
-    <ul class="navbar-nav flex-row d-none d-md-flex">
-      <li class="nav-item me-3 me-lg-1 active">
-        <a class="nav-link" href="{% url 'home' %}">
-          Home
-        </a>
-      </li>
-
-      <li class="nav-item me-3 me-lg-1">
-        <a class="nav-link" href="{% url 'about_us' %}">
-          About Us
-        </a>
-      </li>
-
-      <li class="nav-item dropdown me-3 me-lg-1">
-        <a
-          class="nav-link dropdown-toggle hidden-arrow"
-          href="#"
-          id="navbarDropdownMenuLink"
-          role="button"
-          data-mdb-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Personnel
-        </a>
-        <ul
-          class="dropdown-menu dropdown-menu-end"
-          aria-labelledby="navbarDropdownMenuLink"
-        >
-          <li><a class="dropdown-item" href="{% url 'research_team' %}">LICT Research Team</a></li>
-          <li><a class="dropdown-item" href="#">Faculty of Computer and Knowledge Engineering</a></li>
-          <li><a class="dropdown-item" href="#">Associated Faculties</a></li>
-        </ul>
-      </li>
-
-
-      <li class="nav-item dropdown me-3 me-lg-1">
-        <a
-          class="nav-link dropdown-toggle hidden-arrow"
-          href="#"
-          id="navbarDropdownMenuLink"
-          role="button"
-          data-mdb-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Collaborations
-        </a>
-        <ul
-          class="dropdown-menu dropdown-menu-end"
-          aria-labelledby="navbarDropdownMenuLink"
-        >
-          <li><a class="dropdown-item" href="https://ioe.edu.np/partnerships/national-and-international-linkage/" target="blank">Universities and Agencies</a></li>
-        </ul>
-      </li>
-
-      <li class="nav-item me-3 me-lg-1">
-        <a class="nav-link" href="{% url 'view-posts' %}">
-          Publications
-        </a>
-      </li>
-
-      <li class="nav-item me-3 me-lg-1">
-        <a class="nav-link" href="{% url 'vacancy' %}">
-          Vacancy
-        </a>
-      </li>
-
-      <li class="nav-item me-3 me-lg-1">
-        <a class="nav-link" href="{% url 'contact_us' %}">
-          Contact Us
-        </a>
-      </li>
-
-    </ul>
-    <!-- Center elements -->
+    <!-- Collapsible wrapper -->
 
     <!-- Right elements -->
-
     <ul class="navbar-nav flex-row">
-      {% if user.is_authenticated %}
+      {% if request.user.is_authenticated %}
       <li class="nav-item me-3 me-lg-1">
-        <a class="nav-link d-sm-flex align-items-sm-center" href="{% url 'profile' user.profile.pk%}">
+        <a class="nav-link d-sm-flex align-items-sm-center" href="{% url 'profile' request.user.profile.pk %}">
           <img
-            src="https://mdbootstrap.com/img/new/avatars/1.jpg"
+            src="{{ request.user.profile.profile_pic.url }}"
             class="rounded-circle"
             height="22"
             alt=""
             loading="lazy"
           />
-          <strong class="d-none d-sm-block ms-1">{{ user.username }}</strong>
+          <strong class="d-none d-sm-block ms-1">{{ request.user.username }}</strong>
         </a>
       </li>
       {% endif %}
@@ -139,7 +191,7 @@
           class="dropdown-menu dropdown-menu-end"
           aria-labelledby="navbarDropdownMenuLink"
         >
-          {% if user.is_authenticated %}
+          {% if request.user.is_authenticated %}
           <li><a class="dropdown-item" href="{% url 'account_logout' %}">Log Out</a></li>
           {% else %}
           <li><a class="dropdown-item" href="{% url 'account_login' %}">Log In</a></li>
@@ -150,7 +202,7 @@
     </ul>
     <!-- Right elements -->
   </div>
+  <!-- Container wrapper -->
 </nav>
 <!-- Navbar -->
-
 <div class="container" style="padding-top: 80px"></div>

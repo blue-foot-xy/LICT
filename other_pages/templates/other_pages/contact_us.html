@@ -21,5 +21,32 @@
 </div>
 
 
+<div class="row mt-4">
+    <div class="col mb-4">
+        <div class="card">
+            <div class="card-body">
+               <h3 class="mb-3"> Please let us know if you have any feedback or queries:</h3>
+               <form action="{% url 'contact_us' %}" method="POST" class="border p-2">
+               {% csrf_token %} <!-- For security purpose -->
+
+               Title:
+               <br/>
+               <input type="text" name="title" class="my-1" style="width:390px;"/>
+               <br/><br/>
+
+               Body:
+               <br/>
+              <textarea name="body" rows="8" cols="50" class="my-1"></textarea>
+               <br/><br/>
+
+               <input class="btn btn-success" type="submit" value="Send">
+
+               </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 {% endblock content %}

@@ -1,0 +1,207 @@
+{% load static %}
+
+<!-- Navbar-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <div class="container-fluid justify-content-between">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-mdb-toggle="collapse"
+    data-mdb-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <i class="fas fa-bars"></i>
+  </button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <!-- Left elements -->
+    <div class="d-flex">
+      <!-- Brand -->
+      <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="{%url 'home'%}">
+        <img
+          src="{% static 'lict_logo.png' %}"
+          height="32"
+          alt="LICT"
+          loading="lazy"
+        />
+      </a>
+
+      <!-- Search form -->
+      <form class="input-group w-auto my-auto d-none d-sm-flex" method="GET" action="{% url 'search' %}">
+        <input
+          autocomplete="off"
+          type="search"
+          class="form-control rounded"
+          placeholder="Search Articles"
+          style="min-width: 125px;"
+          name='query'
+          value="{{ request.GET.query }}"
+        />
+        <span class="input-group-text border-0 d-none d-lg-flex"
+          ><button style="border: none; background-color: transparent; box-shadow: none" type="submit"><i class="fas fa-search"></i></button></span>
+      </form>
+    </div>
+
+
+    <!-- Center elements -->
+    <ul class="navbar-nav flex-row d-none d-md-flex">
+      <li class="nav-item me-3 me-lg-1 active">
+        <a class="nav-link" href="{% url 'home' %}">
+          Home
+        </a>
+      </li>
+
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link" href="{% url 'about_us' %}">
+          About Us
+        </a>
+      </li>
+
+
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link" href="{% url 'research_team' %}">
+          Personnel
+        </a>
+      </li>
+
+
+      <li class="nav-item dropdown me-3 me-lg-1">
+        <a
+          class="nav-link dropdown-toggle hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuLink"
+          role="button"
+          data-mdb-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Collaborations
+        </a>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownMenuLink"
+        >
+          <li><a class="dropdown-item" href="https://ioe.edu.np/partnerships/national-and-international-linkage/" target="blank">Universities and Agencies</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item dropdown me-3 me-lg-1">
+        <a
+          class="nav-link dropdown-toggle hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuLink"
+          role="button"
+          data-mdb-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Research
+        </a>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownMenuLink"
+        >
+          <li><a class="dropdown-item" href="{% url 'view-posts' %}">Research Projects</a></li>
+          <li><a class="dropdown-item" href="{% url 'view-domains' %}">Lead Research Domain</a></li>
+          <li><a class="dropdown-item" href="{% url 'view-publications' %}">Research Publications</a></li>
+        </ul>
+      </li>
+
+
+      <li class="nav-item dropdown me-3 me-lg-1">
+        <a
+          class="nav-link dropdown-toggle hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuLink"
+          role="button"
+          data-mdb-toggle="dropdown"
+          aria-expanded="false"
+        >
+        Project-Management
+        </a>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownMenuLink"
+        >
+          <li><a class="dropdown-item" href="{% url 'status' %}">Ongoing</a></li>
+          <li><a class="dropdown-item" href="{% url 'status-completed' %}">Completed</a></li>
+          <li><a class="dropdown-item" href="{% url 'status-create' %}">Create New</a></li>
+        </ul>
+      </li>
+
+
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link" href="{% url 'vacancy' %}">
+          Vacancy
+        </a>
+      </li>
+
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link" href="{% url 'view-news' %}">
+          Notices
+        </a>
+      </li>
+
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link" href="{% url 'contact_us' %}">
+          Contact Us
+        </a>
+      </li>
+
+      {% if request.user.is_superuser %}
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link" href="{% url 'manage-permission' %}">
+          Permissions
+        </a>
+      </li>
+      {% endif %}
+
+
+    </ul>
+    </div>
+
+    <!-- Right elements -->
+    <ul class="navbar-nav flex-row">
+      {% if request.user.is_authenticated %}
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link d-sm-flex align-items-sm-center" href="{% url 'profile' request.user.profile.pk %}">
+          <img
+            src="https://mdbootstrap.com/img/new/avatars/1.jpg"
+            class="rounded-circle"
+            height="22"
+            alt=""
+            loading="lazy"
+          />
+          <strong class="d-none d-sm-block ms-1">{{ request.user.username }}</strong>
+        </a>
+      </li>
+      {% endif %}
+      <li class="nav-item dropdown me-3 me-lg-1">
+        <a
+          class="nav-link dropdown-toggle hidden-arrow"
+          href="#"
+          id="navbarDropdownMenuLink"
+          role="button"
+          data-mdb-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="fas fa-chevron-circle-down fa-lg"></i>
+        </a>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdownMenuLink"
+        >
+          {% if request.user.is_authenticated %}
+          <li><a class="dropdown-item" href="{% url 'account_logout' %}">Log Out</a></li>
+          {% else %}
+          <li><a class="dropdown-item" href="{% url 'account_login' %}">Log In</a></li>
+          <li><a class="dropdown-item" href="{% url 'account_signup' %}">Sign Up</a></li>
+          {% endif %}
+        </ul>
+      </li>
+    </ul>
+
+
+</nav>
+<!-- Navbar -->
+
+<div class="container" style="padding-top: 80px"></div>

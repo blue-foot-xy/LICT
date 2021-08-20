@@ -1,26 +1,15 @@
 {% extends 'posts/base.html' %}
 {% load crispy_forms_tags %}
-{% load markdown_deux_tags %}
-
-{% block head %}
-<style>
-  .wmd-panel {
-    margin-left: 0 !important;
-    width: 100% !important;
-  }
-
-  #wmd-button-bar-id_body {
-    float: left;
-  }
-</style>
-{{ form.media }}
-{% endblock head %}
 
 {% block content %}
   {% if user.is_authenticated %}
      <div class = "card my-3">
         <div class = "card-body">
               <h2 class="my-2">Create a Publication</h2>
+              <small>
+                <ul><li>Use <a href="https://www.markdownguide.org/basic-syntax" target="blank">markdown syntax </a>for formatting the text.</li>
+                <li>For adding images, drag and drop them into the textbox.</li>
+              </small>
               <hr/>
               <form method="POST" enctype="multipart/form-data">
                  {% csrf_token %}
@@ -28,10 +17,9 @@
                  <br/>
                  {{ form.body|as_crispy_field }}
                  <br/>
-                 <button class="btn mt-3" onclick="insertImage('https://th.bing.com/th/id/R27eba165fd85dbd3d1618a2c7abb2236?rik=NB0BbB%2bovpfMBw&pid=ImgRaw')" name="insert_image_button">Insert Image</button>
-                 <br/>
                  <button class="btn btn-success mt-3" name="save_button">Submit!</button>
                </form>
+              {{ form.media }}
         </div>
      </div>
    {% endif %}
@@ -49,18 +37,11 @@
                     {% endif %}
                   <hr/>
                   <p><a style="text-decoration: none" class="text-primary" href="#">@{{ post.publisher }}</a> <span>{{ post.pretty_date }}</span></p>
-                   <p class="brown-lighter-hover">{{ post.summary|markdown }}</p>
+                   <p class="brown-lighter-hover">{% autoescape off %}{{ post.summary }}{% endautoescape %}</p>
                </div>
            </div>
        </div>
    </div>
    {% endfor %}
-
-   <script type="text/javascript">
-       function insertImage(link){
-          var textBox = document.getElementById("wmd-input-id_body");
-          textBox.value = textBox.value + "![enter image description here][1]" + "\n\n" + " [1]: " + link
-       }
-   </script>
 
 {% endblock content %}

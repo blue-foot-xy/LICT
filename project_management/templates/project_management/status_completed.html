@@ -1,0 +1,32 @@
+{% extends 'posts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>
+  .btn {
+    float: right;
+}
+</style>
+
+ <h3 class="display-3 my-3 text-center">Completed Projects</h3>
+
+ {% for post in posts %}
+ {% if  'ongoing' not in post.state_of_project %}
+ <div class="row mt-4">
+     <div class="col mb-4">
+         <div class="card">
+             <div class="card-body">
+                 <h2 class="mb-3"><a href="{% url 'status-detail' post.pk %}" class="text-dark">{{ post.title }}</a>
+                 </h2>
+                <hr/>
+                 <p>{% autoescape off %}{{ post.introduction_html }}{% endautoescape %}</p>
+                     <a href="{% url 'status-detail' post.pk %}" class="btn btn-secondary">View Details</a>
+            </div>
+         </div>
+     </div>
+ </div>
+
+ {% endif %}
+ {% endfor %}
+
+{% endblock content %}

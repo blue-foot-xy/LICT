@@ -1,0 +1,52 @@
+{% extends 'posts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+     <div class = "card my-3">
+        <div class = "card-body">
+              <h2 class="my-2">Create a new Post</h2>
+              <small>
+                <ul><li>Use <a href="https://www.markdownguide.org/basic-syntax" target="blank">markdown syntax </a>for formatting the text.</li>
+                <li>For adding images, drag and drop them into the textbox.</li>
+              </small>
+              <hr/>
+              <form method="POST" enctype="multipart/form-data">
+                 {% csrf_token %}
+                 {{ form.title|as_crispy_field }}
+                 <br/>
+                 {{ form.body|as_crispy_field }}
+                 <br/>
+                 <button class="btn btn-success mt-3" name="save_button">Submit!</button>
+               </form>
+              {{ form.media }}
+        </div>
+     </div>
+   {% endif %}
+
+   {% for post in posts %}
+   <div class="row mt-4">
+       <div class="col mb-4">
+           <div class="card">
+               <div class="card-body">
+                   <h2 class="mb-3">
+                     <a href="#" class="text-dark">{{ post.title }}</a>
+                     
+                     {% if request.user == post.publisher %}
+                       <a href="{% url 'domains-edit' post.pk %}" style="color: #333;"><i class="far fa-edit"></i></a>
+                       <a href="{% url 'domains-delete' post.pk %}" style="color: #333;"><i class="fas fa-trash"></i></a>
+                     {% endif %}
+                   </h2>
+                    {% if post.image %}
+                     <img src="{{ post.image.url }}" class="img-fluid"/>
+                    {% endif %}
+                  <hr/>
+                  <p><a style="text-decoration: none" class="text-primary" href="#">@{{ post.publisher }}</a> <span>{{ post.publish_date }}</span></p>
+                   <p class="brown-lighter-hover">{% autoescape off %}{{ post.body_html }}{% endautoescape %}</p>
+               </div>
+           </div>
+       </div>
+   </div>
+   {% endfor %}
+
+{% endblock content %}

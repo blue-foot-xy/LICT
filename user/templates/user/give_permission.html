@@ -1,0 +1,27 @@
+{% extends 'posts/base.html' %}
+{% load crispy_forms_tags %}
+
+<div class="container" style="padding-top: 100px"></div>
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-5 col-sm-12 border-bottom">
+            <h5>Manage Permissions</h5>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3 mb-5">
+        <div class="col-md-5 col-sm-12 border-bottom">
+          Please tick/untick on the checkboxes to give/revoke the necessary permissions to the user, and then hit submit.
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <div class="d-grid gap-2">
+                    <button class="btn btn-success mt-3">Submit!</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

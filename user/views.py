@@ -7,8 +7,9 @@ from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from .models import UserProfile
 from posts.models import Post
 
+
 # Create your views here.
-class ProfileView(View):
+class ProfileView(LoginRequiredMixin, View):
     def get(self, request, pk, *args, **kwargs):
         profile = UserProfile.objects.get(pk=pk)
         user = profile.user
@@ -22,6 +23,7 @@ class ProfileView(View):
 
         return render(request, 'user/profile.html', context)
 
+
 class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = UserProfile
     fields = ['name', 'bio', 'designation', 'profile_pic']
@@ -34,3 +36,27 @@ class ProfileEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
         profile = self.get_object()
         return self.request.user == profile.user
+
+
+class EditPermissionView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = UserProfile
+    fields = ['posting_permission', 'project_management_permission']
+    template_name = 'user/give_permission.html'
+
+    def get_success_url(self):
+        return reverse_lazy('manage-permission')
+
+    def test_func(self):
+        return self.request.user.is_superuser
+
+
+class ManagePermissionView(LoginRequiredMixin, UserPassesTestMixin, View):
+    def get(self, request, *args, **kwargs):
+        profiles = UserProfile.objects.all()
+        context = {
+            'profiles': profiles,
+        }
+        return render(request, 'user/manage_permissions.html', context)
+
+    def test_func(self):
+        return self.request.user.is_superuser

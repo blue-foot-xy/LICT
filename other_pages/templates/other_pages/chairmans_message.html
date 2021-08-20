@@ -1,0 +1,21 @@
+{% extends 'posts/base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="card mb-3">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src= "{{contents.chairmans_photo.url}}" class="card-img" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title"><a href="#">Chairman's Message</a></h5>
+          <p class="card-text">{{ contents.chairmans_message }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

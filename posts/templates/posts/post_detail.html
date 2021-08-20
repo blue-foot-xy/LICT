@@ -1,6 +1,6 @@
 {% extends 'posts/base.html' %}
 {% load crispy_forms_tags %}
-{% load markdown_deux_tags %}
+
 {% load static %}
 
 {% block content %}
@@ -26,7 +26,7 @@
                  {% endif %}
                <hr/>
                <p><a style="text-decoration: none" class="text-primary" href="#">@{{ post.publisher }}</a> <span>{{ post.publish_date }}</span></p>
-                <p class="brown-lighter-hover">{{ post.body|markdown }}</p>
+                <p class="brown-lighter-hover">{% autoescape off %}{{ post.body_html }}{% endautoescape %}</p>
             </div>
         </div>
     </div>

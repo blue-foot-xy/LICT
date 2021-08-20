@@ -1,0 +1,22 @@
+{% extends 'posts/base.html' %}
+
+{% block content %}
+    <h3 class="mt-5 display-5 text-center">Manage permissions for posting</h3>
+    <p class="text-center">Only the user with permissions are allowed to make a post</p>
+    {% for profile in profiles %}
+        <div class="card px-5 pt-3">
+          <div class="card-body">
+                <h4>Username: <a href="{% url 'profile' profile.pk %}" >@{{ profile.user.username }} </a></h4>
+                <hr/>
+                {% if profile.posting_permission %}
+                    This user has the permission to post.
+                {% else %}
+                    This user doesn't have the permission to post.
+                {% endif %}
+                <br/><a href="{% url 'edit-permission' profile.pk %}" class="mt-2 btn btn-danger mb-1">Manage Permissions</a>
+          </div>
+        </div>
+        <br/>
+    {% endfor %}
+
+{% endblock content %}

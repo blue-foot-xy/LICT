@@ -10,6 +10,8 @@ class UserProfile(models.Model):
     designation = models.CharField(max_length=30, blank=True, null=True)
     bio = models.TextField(max_length=500, blank=True, null=True)
     profile_pic = models.ImageField(upload_to='uploads/profile_pictures', default='uploads/profile_pictures/default.png', blank=True)
+    posting_permission = models.BooleanField('posting permission', default=False)
+    project_management_permission = models.BooleanField('project management permission', default=False)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

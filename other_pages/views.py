@@ -1,21 +1,42 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponseRedirect
+from django.core.mail import send_mail
 
 from .models import *
 from .forms import *
+
 
 # Create your views here.
 class Home(View):
     def get(self, request, *args, **kwargs):
         contents = HomePageMessages.objects.get(pk=1)
         carousel_images = HomePageCarouselImage.objects.all()
-
         context = {
             'contents': contents,
             'carousel_images': carousel_images
         }
+        
         return render(request, 'other_pages/home.html', context)
+
+
+class DeansMessage(View):
+    def get(self, request, *args, **kwargs):
+        contents = HomePageMessages.objects.get(pk=1)
+        context = {
+            'contents': contents,
+        }
+
+        return render(request, 'other_pages/deans_message.html', context)
+
+class ChairmansMessage(View):
+    def get(self, request, *args, **kwargs):
+        contents = HomePageMessages.objects.get(pk=1)
+        context = {
+            'contents': contents,
+        }
+
+        return render(request, 'other_pages/chairmans_message.html', context)
 
 
 class AboutUs(View):
@@ -38,18 +59,27 @@ class AboutUs(View):
 class ContactUs(View):
     def get(self, request, *args, **kwargs):
         contacts = Contact.objects.get(pk=1)
-
         context = {
             'contacts': contacts,
         }
 
         return render(request, 'other_pages/contact_us.html', context)
 
+    def post(self, request, *args, **kwargs):
+        send_mail(
+            request.POST['title'],
+            request.POST['body'],
+            'piepie4358934586@gmail.com',
+            ['lict@ioe.edu.np', 'piepie4358934586@gmail.com'],
+            fail_silently=False,
+        )
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 class ResearchTeam(View):
     def get(self, request, *args, **kwargs):
         research_team = ResearchTeamMember.objects.all()
-
         context = {
             'research_team': research_team,
         }
@@ -65,6 +95,7 @@ class CVUpload(View):
             'vacancy_announcements' : vacancy_announcements,
             'form': form,
         }
+
         return render(request, 'posts/vacancy.html', context)
 
     def post(self, request, *args, **kwargs):

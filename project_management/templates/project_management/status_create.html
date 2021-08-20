@@ -1,0 +1,25 @@
+{% extends 'posts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>
+  input,textarea,select {
+    margin-bottom: 1vh !important;
+  }
+</style>
+    {% if user.is_authenticated %}
+       <div class = "card my-3">
+          <div class = "card-body">
+                <h2 class="my-2">Add new Project</h2>
+                <hr/>
+                <form method="POST" enctype="multipart/form-data">
+                   {% csrf_token %}
+                   {{ form |crispy }}
+                   <br/>
+                   <button class="btn btn-success mt-3" name="save_button">Submit!</button>
+                 </form>
+                {{ form.media }}
+          </div>
+       </div>
+    {% endif %}
+ {% endblock content %}

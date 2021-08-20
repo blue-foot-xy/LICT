@@ -1,0 +1,85 @@
+{% extends 'posts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style>
+  .btn-secondary {
+    float: right;
+}
+</style>
+
+<a href="{% url 'status' %}" class="btn btn-light my-4">Go Back</a>
+
+ <h3 class="display-3 my-3 text-center">Project Detail</h3>
+
+ <div class="row mt-4">
+     <div class="col mb-4">
+         <div class="card">
+             <div class="card-body">
+                 <h2 class="mb-3"><a href="#" class="text-dark">{{ post.title }}</a>
+                 {% if request.user == post.publisher %}
+                   <a href="{% url 'status-edit' post.pk %}" style="color: #333; float:right;"><i class="far fa-edit mx-1"></i></a>
+                   <a href="{% url 'status-delete' post.pk %}" style="color: #333; float:right;"><i class="fas fa-trash mx-1"></i></a>
+                 {% endif %}
+                 </h2>
+                 <h6><span class="border border-success p-1 rounded">State of the Project: {{ post.state_of_project }}</span></h6>
+                <hr/>
+                 {% if post.introduction %}
+                 <p><h4 class="mt-4">Introduction:</h4>{% autoescape off %}{{ post.introduction_html }}{% endautoescape %}</p>
+                 {% endif %}
+                 {% if post.background %}
+                 <p><h4>Background:</h4>{{ post.background }} </p>
+                 {% endif %}
+                 {% if post.scope_of_work %}
+                 <p><h4>Scope of Work:</h4>{{ post.scope_of_work }} </p>
+                 {% endif %}
+                 {% if post.objective %}
+                 <p><h4>Objective:</h4>{{ post.objective }} </p>
+                 {% endif %}
+                 {% if post.project_duration %}
+                 <p><h4>Project Duration:</h4>{{ post.project_duration }} </p>
+                 {% endif %}
+                 {% if post.principle_investigator %}
+                 <p><h4>Project Investigator:</h4>{{ post.principle_investigator }} </p>
+                 {% endif %}
+                 {% if post.co_investigator %}
+                 <p><h4>Co-investigator:</h4>{{ post.co_investigator }} </p>
+                 {% endif %}
+                 {% if post.team_members %}
+                 <p><h4>Team Members:</h4>{{ post.team_members }} </p>
+                 {% endif %}
+                 {% if post.advisors %}
+                 <p><h4>Advisors:</h4>{{ post.advisors }} </p>
+                 {% endif %}
+                 {% if post.international_experts %}
+                 <p><h4>International Experts:</h4>{{ post.international_experts }} </p>
+                 {% endif %}
+                 {% if post.phd_research_scholars %}
+                 <p><h4>Phd. Research Scholars:</h4>{{ post.phd_research_scholars }} </p>
+                 {% endif %}
+                 {% if post.funding %}
+                 <p><h4>Post Funding:</h4>{{ post.funding }} </p>
+                 {% endif %}
+                 {% if post.estimated_completion_date %}
+                 <p><h4>Estimated Completion Date:</h4>{{ post.estimated_completion_date }} </p>
+                 {% endif %}
+                 {% if post.other_description %}
+                 <p><h4>Other Description:</h4>{{ post.other_description }} </p>
+                 {% endif %}
+
+                 <form method="POST" enctype="multipart/form-data">
+                   {% csrf_token %}
+                   {% if  'ongoing' in post.state_of_project %}
+                       <button class="btn btn-secondary">Mark Completed</button>
+                   {% else %}
+                       <button class="btn btn-secondary">Mark Ongoing</button>
+                   {% endif %}
+                  </form>
+
+             </div>
+         </div>
+     </div>
+ </div>
+
+{% endblock content %}
