@@ -125,7 +125,9 @@
           >
             <li><a class="dropdown-item" href="{% url 'status' %}">Ongoing</a></li>
             <li><a class="dropdown-item" href="{% url 'status-completed' %}">Completed</a></li>
+            {% if request.user.is_authenticated %}
             <li><a class="dropdown-item" href="{% url 'status-create' %}">Create New</a></li>
+            {% endif %}
           </ul>
         </li>
 
